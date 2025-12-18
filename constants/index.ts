@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React from 'react';
+import { ImageSourcePropType } from 'react-native';
 
 import {
     LAUGHTER_GLOBAL,
@@ -143,11 +144,12 @@ export const GIF_IMAGES = [
     },
 ];
 
-export const GIF_MAPPING: Record<string, string> = {
+export const GIF_MAPPING: Record<string, ImageSourcePropType> = {
     '/GIFs/dino.gif': require('../assets/gif/dino.gif'),
     '/GIFs/leaves.gif': require('../assets/gif/leaves.gif'),
     '/GIFs/tiger.gif': require('../assets/gif/tiger.gif'),
 };
+
 export const BADGE_MAPPING: Record<string, string> = {
     VALUE_BADGE_ASSIGNED_LAUGHTER: 'Laughter',
     VALUE_BADGE_ASSIGNED_SAFETY: 'Safety',

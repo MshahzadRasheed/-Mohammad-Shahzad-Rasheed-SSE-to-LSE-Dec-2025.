@@ -1,11 +1,19 @@
 import _ from 'lodash';
 import Util from '../util';
 import { APIConstants } from '../constants/APIConstants';
+import { Environment } from './environment';
 
-export const BASE_URL = 'https://sigma.imprint.live/backend';
-export const RUDI_API_URL = BASE_URL.includes('sigma')
-    ? 'https://rudi-func-qa.azurewebsites.net/api/chat-service'
-    : 'https://rudi-func-stage.azurewebsites.net/api/chat-service';
+/**
+ * Base URL for API requests - loaded from environment configuration
+ * @see .env.sigma for Sigma/QA environment
+ * @see .env.live for Production environment
+ */
+export const BASE_URL = Environment.apiBaseUrl;
+
+/**
+ * RUDI AI Chat Service URL - loaded from environment configuration
+ */
+export const RUDI_API_URL = Environment.rudiApiUrl;
 
 export const API_TIMEOUT = 3000000;
 

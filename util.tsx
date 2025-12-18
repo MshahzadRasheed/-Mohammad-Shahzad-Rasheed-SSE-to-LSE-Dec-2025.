@@ -4,6 +4,7 @@ import { CHAT_LIST } from './constants/StringConstants';
 import { IMessage } from 'react-native-gifted-chat';
 import { UserState } from './types';
 import { GIF_MAPPING, IMAGE_TYPE } from './constants';
+import DataHandler from '../services/DataHandler';
 
 class Util {
     private urlDecode = (text: string): string => {
@@ -113,6 +114,9 @@ class Util {
             return error;
         }
         return '';
+    }
+    getCurrentUserAccessToken() {
+        return DataHandler.getStore()?.getState().user.access_token;
     }
 }
 
