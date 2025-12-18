@@ -1,12 +1,16 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Bubble } from 'react-native-gifted-chat';
+import { Bubble, BubbleProps, IMessage } from 'react-native-gifted-chat';
 import RED_FLAG from '../assets/icons/RedFlag';
 import { CHAT_LIST } from '../../constants/StringConstants';
 import { BUBBLE_POSITIONS } from '../../constants';
 import styles from './styles';
 
-export const CustomBubble = ({ props }) => {
+interface CustomBubbleProps {
+    props: BubbleProps<IMessage>;
+}
+
+export const CustomBubble: React.FC<CustomBubbleProps> = ({ props }) => {
     const isLeft = props.position === BUBBLE_POSITIONS.LEFT;
     const currentMessage = props.currentMessage;
 

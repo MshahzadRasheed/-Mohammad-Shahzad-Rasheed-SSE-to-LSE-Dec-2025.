@@ -1,7 +1,6 @@
 // @flow
 import { Image } from 'react-native';
 
-import { gifMapping } from '../constants';
 import { decode } from 'html-entities';
 import { CHAT_LIST } from './constants/StringConstants';
 import { IMessage } from 'react-native-gifted-chat';
@@ -9,32 +8,28 @@ import { UserInfo, UserState } from './types';
 import { GIF_MAPPING, IMAGE_TYPE } from './constants';
 
 class Util {
+    private urlDecode = (text: string): string => {
+        try {
+            return decodeURIComponent(text);
+        } catch (error) {
+            console.error('Error decoding URI component:', error);
+            return text;
+        }
+    };
+
+    private htmlDecode = (text: string): string => {
+        return decode(text);
+    };
+
+    decodeAndSanitizeContent = (text: string): string => {
+        const urlDecoded = this.urlDecode(text);
+        return this.htmlDecode(urlDecoded);
+    };
+
     tranFormChatResponse(response: IMessage[]) {
-        const decodeContent = (text: string): string => {
-            const urlDecode = (text: string): string => {
-                try {
-                    return decodeURIComponent(text);
-                } catch (error) {
-                    console.error('Error decoding URI component:', error);
-                    return text;
-                }
-            };
-
-            const htmlDecode = (text: string): string => {
-                return decode(text);
-            };
-            const urlDecoded = urlDecode(text);
-            return htmlDecode(urlDecoded);
-        };
-
         return response.map((message) => ({
             _id: message.id,
-            text: message.content
-                ? decodeContent(message.content || '').replace(
-                      /[^\x20-\x7E‘’”]/g,
-                      ''
-                  )
-                : '',
+            text: message.content ? this.cleanDecodedText(message.content) : '',
             createdAt: message.createdAt,
             avatar: message.user.avatarUrl,
             isFlagged: message.isFlagged,
@@ -44,31 +39,12 @@ class Util {
                 avatar: message.user.avatarUrl,
                 email: message.user.email,
             },
-            image:
-                message.attachmentType === 'GIF' &&
-                gifMapping[message.attachmentUrl]
-                    ? Image.resolveAssetSource(
-                          gifMapping[message.attachmentUrl]
-                      ).uri
-                    : null,
+            image: this.getGifImageUri(
+                message.attachmentType,
+                message.attachmentUrl
+            ),
         }));
     }
-    decodeAndSanitizeContent = (text: string): string => {
-        const urlDecode = (text: string): string => {
-            try {
-                return decodeURIComponent(text);
-            } catch (error) {
-                console.error('Error decoding URI component:', error);
-                return text;
-            }
-        };
-
-        const htmlDecode = (text: string): string => {
-            return decode(text);
-        };
-        const urlDecoded = urlDecode(text);
-        return htmlDecode(urlDecoded);
-    };
     getUpdatedMessageListAfterDelete = (
         messages: IMessage[],
         msg: IMessage

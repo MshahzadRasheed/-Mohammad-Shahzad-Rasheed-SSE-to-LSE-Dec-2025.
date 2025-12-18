@@ -9,12 +9,10 @@ interface CustomSendProps {
     props: IMessage;
 }
 
-const CustomSend = ({ props }: CustomSendProps) => {
+export const CustomSend: React.FC<CustomSendProps> = ({ props }) => {
     return (
         <Send {...props} containerStyle={styles.sendIcon}>
             <SEND_BUTTON height={17} width={17} />
         </Send>
     );
 };
-
-export default CustomSend;

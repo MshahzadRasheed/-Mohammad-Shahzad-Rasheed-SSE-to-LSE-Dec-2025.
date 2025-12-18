@@ -1,14 +1,12 @@
-const REQUEST = 'REQUEST';
-const SUCCESS = 'SUCCESS';
-const CANCEL = 'CANCEL';
-const FAILURE = 'FAILURE';
+import { RequestTypes } from '../types';
 
-function createRequestTypes(base: string) {
-    const res: { [key: string]: string } = {};
-    [REQUEST, SUCCESS, FAILURE, CANCEL].forEach((type) => {
-        res[type] = `${base}_${type}`;
-    });
-    return res;
+export function createRequestTypes(base: string): RequestTypes {
+    return {
+        REQUEST: `${base}_REQUEST`,
+        SUCCESS: `${base}_SUCCESS`,
+        FAILURE: `${base}_FAILURE`,
+        CANCEL: `${base}_CANCEL`,
+    };
 }
 
 //Auth Actions Types

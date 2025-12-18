@@ -1,12 +1,47 @@
 import React from 'react';
-import { InputToolbar } from 'react-native-gifted-chat';
-import { Text } from 'react-native';
+import {
+    InputToolbar,
+    InputToolbarProps,
+    IMessage,
+} from 'react-native-gifted-chat';
+import { Text, ViewStyle, TextStyle } from 'react-native';
 import { CHAT_LIST, TOAST_MESSAGES } from '../constants';
 import { CHAT_BLOCK_MAPPING } from '../../constants';
 import { AppStyles } from '../styles/AppStyles';
 import { Colors } from '../styles/Colors';
+import { UserState, Follower } from '../../types';
 
-export const CustomInputToolbar = ({
+interface ChatRoute {
+    params: {
+        canMessage?: boolean;
+        conversationId: string;
+        participantList: Follower[];
+        isBlocked: boolean;
+    };
+}
+
+interface CustomInputToolbarStyles {
+    inputContainer: ViewStyle;
+    bannedText: TextStyle;
+    underlineText: TextStyle;
+}
+
+interface CustomInputToolbarProps {
+    props: InputToolbarProps<IMessage>;
+    user: UserState;
+    route: ChatRoute;
+    isBlocked: boolean;
+    participantList: Follower[];
+    onClickAppeal: () => void;
+    styles: CustomInputToolbarStyles;
+}
+
+interface MessageComponentProps {
+    onClickAppeal?: () => void;
+    styles?: CustomInputToolbarStyles;
+}
+
+export const CustomInputToolbar: React.FC<CustomInputToolbarProps> = ({
     props,
     user,
     route,
@@ -44,13 +79,16 @@ export const CustomInputToolbar = ({
     );
 };
 
-const BannedTextMessage = ({ onClickAppeal, styles }) => (
-    <Text textAlign='left' style={styles.bannedText} size='xxSmall'>
+const BannedTextMessage: React.FC<MessageComponentProps> = ({
+    onClickAppeal,
+    styles,
+}) => (
+    <Text textAlign='left' style={styles?.bannedText} size='xxSmall'>
         {TOAST_MESSAGES.BLOCK_CHAT_MESSAGE}
         <Text
             onPress={onClickAppeal}
             textAlign='center'
-            style={styles.underlineText}
+            style={styles?.underlineText}
         >
             {'\n'}
             {CHAT_LIST.CLICK_HERE}
@@ -58,13 +96,16 @@ const BannedTextMessage = ({ onClickAppeal, styles }) => (
     </Text>
 );
 
-const Under18Message = ({ onClickAppeal, styles }) => (
-    <Text textAlign='left' style={styles.bannedText} size='xxSmall'>
+const Under18Message: React.FC<MessageComponentProps> = ({
+    onClickAppeal,
+    styles,
+}) => (
+    <Text textAlign='left' style={styles?.bannedText} size='xxSmall'>
         {TOAST_MESSAGES.BLOCK_UNDER_18_MESSAGE}
         <Text
             onPress={onClickAppeal}
             textAlign='center'
-            style={styles.underlineText}
+            style={styles?.underlineText}
         >
             {'\n'}
             {CHAT_LIST.CLICK_HERE}
@@ -72,7 +113,7 @@ const Under18Message = ({ onClickAppeal, styles }) => (
     </Text>
 );
 
-const BlockedUserMessage = () => (
+const BlockedUserMessage: React.FC = () => (
     <Text
         style={AppStyles.mBottom20}
         color={Colors.black}
@@ -84,7 +125,7 @@ const BlockedUserMessage = () => (
     </Text>
 );
 
-const GroupChatWarningMessage = () => (
+const GroupChatWarningMessage: React.FC = () => (
     <Text
         color={Colors.black}
         type='medium'

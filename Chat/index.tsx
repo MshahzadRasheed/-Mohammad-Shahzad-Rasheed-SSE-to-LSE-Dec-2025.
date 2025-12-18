@@ -26,7 +26,6 @@ import {
     RootState,
     ReportContentResponse,
     ActionSheetContext,
-    FOLLOWERS,
     Follower,
 } from '../types';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -57,7 +56,7 @@ interface HocChatProps {
     reportType: string;
     setReportType: React.Dispatch<React.SetStateAction<string>>;
     onClickAppeal: () => void;
-    participantList: FOLLOWERS[];
+    participantList: Follower[];
     isBlocked: boolean;
     listViewProps: Partial<FlatListProps<IMessage>>;
     chatTitle: string;

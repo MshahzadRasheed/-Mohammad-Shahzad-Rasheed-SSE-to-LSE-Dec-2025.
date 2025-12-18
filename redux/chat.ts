@@ -27,253 +27,131 @@ import Util from '../util';
 import { showToastMsg } from '../components/Alert';
 import { APIConstants } from '../constants/APIConstants';
 import { TOAST_MESSAGES } from '../constants/StringConstants';
+import { RequestTypes } from '../types';
 
-function alert(message, type = 'error') {
-    showToastMsg(message);
+interface SagaConfig {
+    actionType: RequestTypes;
+    apiConfig: object;
+    buildParams?: (payload: Record<string, unknown>) => string;
+    customHeaders?: Record<string, string>;
+    customErrorHandler?: (err: Error) => void;
 }
 
-function* recentChatList() {
-    while (true) {
-        const { responseCallback } = yield take(RECENT_CHAT_LIST.REQUEST);
-        try {
-            const response = yield call(
-                callRequest,
-                RECENT_CHAT_LIST_URL,
-                {},
-                '',
-                {},
-                ApiSauce
+function createApiSaga(config: SagaConfig) {
+    const {
+        actionType,
+        apiConfig,
+        buildParams,
+        customHeaders = {},
+        customErrorHandler,
+    } = config;
+
+    return function* () {
+        while (true) {
+            const { payload = {}, responseCallback } = yield take(
+                actionType.REQUEST
             );
-            if (response) {
-                if (responseCallback) responseCallback(response, null);
-            } else {
-                alert('Something went wrong');
+
+            try {
+                const parameters = buildParams ? buildParams(payload) : '';
+
+                const response = yield call(
+                    callRequest,
+                    apiConfig,
+                    payload,
+                    parameters,
+                    customHeaders,
+                    ApiSauce
+                );
+
+                if (response) {
+                    if (responseCallback) responseCallback(response, null);
+                } else {
+                    showToastMsg('Something went wrong');
+                }
+            } catch (err) {
+                if (responseCallback) responseCallback(null, err);
+
+                if (customErrorHandler) {
+                    customErrorHandler(err);
+                } else {
+                    showToastMsg(Util.getErrorText(err.message));
+                }
             }
-        } catch (err) {
-            if (responseCallback) responseCallback(null, err);
         }
-    }
+    };
 }
 
-function* createChat() {
-    while (true) {
-        const { payload, responseCallback } = yield take(
-            CREATE_CHAT_GROUP.REQUEST
+const sagaConfigs: SagaConfig[] = [
+    {
+        actionType: RECENT_CHAT_LIST,
+        apiConfig: RECENT_CHAT_LIST_URL,
+    },
+    {
+        actionType: GET_CONVERSATION_MESSAGES,
+        apiConfig: GET_CONVERSATION_MESSAGES_URL,
+        buildParams: (payload) =>
+            `${APIConstants.GET_CONVERSATION_MESSAGES}?page=${payload.page}&convId=${payload.convId}`,
+    },
+    {
+        actionType: GET_CHAT_TOKEN,
+        apiConfig: GET_CHAT_TOKEN_URL,
+    },
+    {
+        actionType: UPDATE_READ_STATUS,
+        apiConfig: UPDATE_READ_STATUS_URL,
+        buildParams: (payload) =>
+            `${APIConstants.UPDATE_READ_STATUS}/${payload.conversationId}`,
+    },
+    {
+        actionType: DELETE_CHAT_GROUP,
+        apiConfig: DELETE_CHAT_GROUP_URL,
+        buildParams: (payload) =>
+            `${APIConstants.CREATE_CHAT_GROUP.substring(1)}?conversationId=${
+                payload.conversationId
+            }`,
+    },
+    {
+        actionType: FLAG_MESSAGE,
+        apiConfig: FLAG_MESSAGE_URL,
+    },
+    {
+        actionType: DELETE_CHAT,
+        apiConfig: DELETE_CHAT_URL,
+        buildParams: (payload) =>
+            `${APIConstants.DELETE_CHAT}/${payload.conversationId}/me`,
+    },
+    {
+        actionType: DELETE_MESSAGE,
+        apiConfig: DELETE_MESSAGE_URL,
+        buildParams: (payload) =>
+            `${APIConstants.DELETE_MESSAGE}msgId=${payload.msgId}&for-all=${payload.forAll}`,
+    },
+];
+
+const createChatConfig: SagaConfig = {
+    actionType: CREATE_CHAT_GROUP,
+    apiConfig: CREATE_CHAT_GROUP_URL,
+    customHeaders: { 'Content-Type': 'multipart/form-data' },
+    customErrorHandler: (err) => {
+        const errorMessage = Util.getErrorText(err.message);
+        showToastMsg(
+            errorMessage.includes('banned')
+                ? TOAST_MESSAGES.PERMISSION_UNDER18_USER
+                : errorMessage
         );
-        try {
-            const response = yield call(
-                callRequest,
-                CREATE_CHAT_GROUP_URL,
-                payload,
-                '',
-                { 'Content-Type': 'multipart/form-data' },
-                ApiSauce
-            );
-            if (response) {
-                if (responseCallback) responseCallback(response, null);
-            } else {
-                alert('Something went wrong');
-            }
-        } catch (err) {
-            if (responseCallback) responseCallback(null, err);
-            alert(
-                Util.getErrorText(err.message).includes('banned')
-                    ? TOAST_MESSAGES.PERMISSION_UNDER18_USER
-                    : Util.getErrorText(err.message)
-            );
-        }
-    }
-}
+    },
+};
 
-function* getConversationsMessages() {
-    while (true) {
-        const { payload, responseCallback } = yield take(
-            GET_CONVERSATION_MESSAGES.REQUEST
-        );
-        const parameters = `${APIConstants.GET_CONVERSATION_MESSAGES}?page=${payload.page}&convId=${payload.convId}`;
-        try {
-            const response = yield call(
-                callRequest,
-                GET_CONVERSATION_MESSAGES_URL,
-                {},
-                parameters,
-                {},
-                ApiSauce
-            );
-            if (response) {
-                if (responseCallback) responseCallback(response, null);
-            } else {
-                alert('Something went wrong');
-            }
-        } catch (err) {
-            if (responseCallback) responseCallback(null, err);
-            alert(Util.getErrorText(err.message));
-        }
-    }
-}
-
-function* updateMessageReadStatus() {
-    while (true) {
-        const { payload, responseCallback } = yield take(
-            UPDATE_READ_STATUS.REQUEST
-        );
-        const parameters = `${APIConstants.UPDATE_READ_STATUS}/${payload.conversationId}`;
-
-        try {
-            const response = yield call(
-                callRequest,
-                UPDATE_READ_STATUS_URL,
-                {},
-                parameters,
-                {},
-                ApiSauce
-            );
-            if (response) {
-                if (responseCallback) responseCallback(response, null);
-            } else {
-                alert('Something went wrong');
-            }
-        } catch (err) {
-            if (responseCallback) responseCallback(null, err);
-            alert(Util.getErrorText(err.message));
-        }
-    }
-}
-
-function* getChatToken() {
-    while (true) {
-        const { responseCallback } = yield take(GET_CHAT_TOKEN.REQUEST);
-        try {
-            const response = yield call(
-                callRequest,
-                GET_CHAT_TOKEN_URL,
-                {},
-                '',
-                {},
-                ApiSauce
-            );
-            if (response) {
-                if (responseCallback) responseCallback(response, null);
-            } else {
-                alert('Something went wrong');
-            }
-        } catch (err) {
-            if (responseCallback) responseCallback(null, err);
-            alert(Util.getErrorText(err.message));
-        }
-    }
-}
-
-function* deleteChatGroup() {
-    while (true) {
-        const { payload, responseCallback } = yield take(
-            DELETE_CHAT_GROUP.REQUEST
-        );
-        const parameters = `${APIConstants.CREATE_CHAT_GROUP.substring(
-            1
-        )}?conversationId=${payload.conversationId}`;
-
-        try {
-            const response = yield call(
-                callRequest,
-                DELETE_CHAT_GROUP_URL,
-                {},
-                parameters,
-                {},
-                ApiSauce
-            );
-
-            if (response) {
-                if (responseCallback) responseCallback(response, null);
-            } else {
-                alert('Something went wrong');
-            }
-        } catch (err) {
-            if (responseCallback) responseCallback(null, err);
-            alert(Util.getErrorText(err.message));
-        }
-    }
-}
-
-function* flagMessage() {
-    while (true) {
-        const { payload, responseCallback } = yield take(FLAG_MESSAGE.REQUEST);
-
-        try {
-            const response = yield call(
-                callRequest,
-                FLAG_MESSAGE_URL,
-                payload,
-                '',
-                {},
-                ApiSauce
-            );
-            if (response) {
-                if (responseCallback) responseCallback(response, null);
-            } else {
-                alert('Something went wrong');
-            }
-        } catch (err) {
-            if (responseCallback) responseCallback(null, err);
-            alert(Util.getErrorText(err.message));
-        }
-    }
-}
-
-function* deleteChat() {
-    while (true) {
-        const { payload, responseCallback } = yield take(DELETE_CHAT.REQUEST);
-        const parameters = `${APIConstants.DELETE_CHAT}/${payload.conversationId}/me`;
-
-        try {
-            const response = yield call(
-                callRequest,
-                DELETE_CHAT_URL,
-                {},
-                parameters,
-                {},
-                ApiSauce
-            );
-            if (response) {
-                if (responseCallback) responseCallback(response, null);
-            } else {
-                alert('Something went wrong');
-            }
-        } catch (err) {
-            if (responseCallback) responseCallback(null, err);
-            alert(Util.getErrorText(err.message));
-        }
-    }
-}
-
-function* deleteMessages() {
-    while (true) {
-        const { payload, responseCallback } = yield take(
-            DELETE_MESSAGE.REQUEST
-        );
-        const parameters = `${APIConstants.DELETE_MESSAGE}msgId=${payload.msgId}&for-all=${payload.forAll}`;
-
-        try {
-            const response = yield call(
-                callRequest,
-                DELETE_MESSAGE_URL,
-                {},
-                parameters,
-                {},
-                ApiSauce
-            );
-
-            if (response) {
-                if (responseCallback) responseCallback(response, null);
-            } else {
-                alert('Something went wrong');
-            }
-        } catch (err) {
-            if (responseCallback) responseCallback(null, err);
-            alert(Util.getErrorText(err.message));
-        }
-    }
-}
+const recentChatList = createApiSaga(sagaConfigs[0]);
+const getConversationsMessages = createApiSaga(sagaConfigs[1]);
+const getChatToken = createApiSaga(sagaConfigs[2]);
+const updateMessageReadStatus = createApiSaga(sagaConfigs[3]);
+const deleteChatGroup = createApiSaga(sagaConfigs[4]);
+const flagMessage = createApiSaga(sagaConfigs[5]);
+const deleteChat = createApiSaga(sagaConfigs[6]);
+const deleteMessages = createApiSaga(sagaConfigs[7]);
+const createChat = createApiSaga(createChatConfig);
 
 export default function* root() {
     yield fork(recentChatList);

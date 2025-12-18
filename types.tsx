@@ -158,10 +158,6 @@ export const ContentTypeMapping = {
     CONVERSATION_MESSAGE: 'chat',
     USER_REPORT: 'profile',
 };
-export const ChatBlockMapping = {
-    BAN_CONVERSATION: 'BAN_CONVERSATION',
-    BAN_CONVERSATION_U18: 'BAN_CONVERSATION_U18',
-};
 
 export type EventScrollType = { height: number; width: number };
 
@@ -177,17 +173,6 @@ export enum ReportEnums {
     MESSAGE = 'Message',
 }
 
-export interface FOLLOWERS {
-    fromUser?: string;
-    avatarUrl: string;
-    displayName: string;
-    email: string;
-    id: string;
-    userName: string;
-    blockedImprints: boolean;
-    blockedMessages: boolean;
-    isUserBlocked: boolean;
-}
 interface Decision {
     action: string;
     actionType: string;
@@ -310,3 +295,10 @@ export type ActionSheetContext = {
         ) => void;
     };
 };
+
+export interface RequestTypes {
+    REQUEST: string;
+    SUCCESS: string;
+    FAILURE: string;
+    CANCEL: string;
+}

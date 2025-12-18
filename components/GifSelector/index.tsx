@@ -3,15 +3,15 @@ import { View, Pressable, Image } from 'react-native';
 import OutsidePressHandler from 'react-native-outside-press';
 import { GIF_IMAGES, IMAGE_TYPE } from '../../constants';
 import { CHAT_ATTACHMENT } from '../../constants/AssetSVGConstants';
-import styles from './styles';
+import { styles } from './styles';
 
-interface RenderActionsProps {
+interface GifSelectorProps {
     showGif: boolean;
     setShowGif: (value: boolean) => void;
     sendGif: (url: string, type: string) => void;
 }
 
-const RenderActions: React.FC<RenderActionsProps> = ({
+export const GifSelector: React.FC<GifSelectorProps> = ({
     showGif,
     setShowGif,
     sendGif,
@@ -46,5 +46,3 @@ const RenderActions: React.FC<RenderActionsProps> = ({
         </OutsidePressHandler>
     );
 };
-
-export default RenderActions;

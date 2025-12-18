@@ -4,7 +4,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { IMessage } from 'react-native-gifted-chat';
 
 import { useWebSocket } from '../hooks/useChatWebSocket';
-import { usePaginatedScroll } from '../hooks/usePaginatiedScroll';
+import { usePaginatedScroll } from '../hooks/usePaginatedScroll';
 import { useMessageLongPress } from '../hooks/useMessageLongPress';
 
 import util from '../util.tsx';
@@ -63,7 +63,7 @@ const withChatLogic = (
                 user,
                 participantList
             );
-            setMessages((prevMessages: IMessage) => [
+            setMessages((prevMessages: IMessage[]) => [
                 formatted,
                 ...prevMessages,
             ]);
@@ -130,7 +130,7 @@ const withChatLogic = (
                 if (updatedResponse.length === 0) {
                     setAllDataLoaded(true);
                 } else {
-                    setMessages((prev: IMessage) => [
+                    setMessages((prev: IMessage[]) => [
                         ...prev,
                         ...updatedResponse,
                     ]);
