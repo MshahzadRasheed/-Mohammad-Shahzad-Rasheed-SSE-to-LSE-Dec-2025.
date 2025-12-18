@@ -1,4 +1,3 @@
-// @flow
 import Immutable from 'seamless-immutable';
 import _ from 'lodash';
 import {

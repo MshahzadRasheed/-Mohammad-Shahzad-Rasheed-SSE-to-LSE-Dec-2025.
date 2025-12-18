@@ -1,4 +1,3 @@
-// withMessages.tsx
 import React, { useState, useEffect } from 'react';
 import { getConversationMessagesRequest } from '../api/chat';
 import { IMessage } from 'react-native-gifted-chat';

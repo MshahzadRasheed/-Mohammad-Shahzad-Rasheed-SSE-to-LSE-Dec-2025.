@@ -44,16 +44,14 @@ const Routing: React.FC = () => {
     );
 
     useEffect(() => {
-        // Keep track of whether the component is mounted or not
         isMountedRef.current = true;
 
-        // Add back handler logic
         const backAction = () => {
             if (screenName === 'home' || screenName === 'onboarding') {
-                showExitPopup(); // Show exit popup if it's the last screen
-                return true; // Prevent default back action
+                showExitPopup();
+                return true;
             }
-            return false; // Allow default back action
+            return false;
         };
 
         const backHandler = BackHandler.addEventListener(
@@ -61,7 +59,6 @@ const Routing: React.FC = () => {
             backAction
         );
 
-        // Clean up the back handler on component unmount
         return () => {
             backHandler.remove();
             isMountedRef.current = false;
@@ -72,9 +69,9 @@ const Routing: React.FC = () => {
         if (violation) {
             const timeout = setTimeout(() => {
                 setShowModal(true);
-            }, 2000); // Delay in milliseconds
+            }, 2000);
 
-            return () => clearTimeout(timeout); // Cleanup on unmount
+            return () => clearTimeout(timeout);
         }
     }, [violation]);
 
@@ -144,7 +141,7 @@ const Routing: React.FC = () => {
             {isReady !== undefined && violation && (
                 <AccountStatusModal
                     handleSubmitClick={() => {
-                        // setBlockAlert(false);
+                        navigationRef.current?.navigate('HomeTabs');
                     }}
                     title={
                         violation.actionType.charAt(0).toUpperCase() +

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import Chat from './index_hoc';
+import Chat from '../Chat';
 import withChatLogic from '../hoc/withChatLogic';
 
 const mockStore = configureStore([]);

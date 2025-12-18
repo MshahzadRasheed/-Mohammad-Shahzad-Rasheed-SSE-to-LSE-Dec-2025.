@@ -1,4 +1,3 @@
-// @flow
 import React, { useState, useEffect } from 'react';
 import { AppRegistry, View, Platform, LogBox } from 'react-native';
 import { Provider } from 'react-redux';
@@ -16,7 +15,6 @@ import toastConfig from './components/Alert/customToast';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { IOS_CLIENT_ID, WEB_CLIENT_ID } from './config/SocialLogin';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { EventProvider } from 'react-native-outside-press';
 

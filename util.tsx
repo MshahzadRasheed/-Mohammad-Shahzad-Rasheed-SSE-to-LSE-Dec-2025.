@@ -1,10 +1,8 @@
-// @flow
 import { Image } from 'react-native';
-
 import { decode } from 'html-entities';
 import { CHAT_LIST } from './constants/StringConstants';
 import { IMessage } from 'react-native-gifted-chat';
-import { UserInfo, UserState } from './types';
+import { UserState } from './types';
 import { GIF_MAPPING, IMAGE_TYPE } from './constants';
 
 class Util {

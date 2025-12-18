@@ -8,9 +8,7 @@ export const RUDI_API_URL = BASE_URL.includes('sigma')
     : 'https://rudi-func-stage.azurewebsites.net/api/chat-service';
 
 export const API_TIMEOUT = 3000000;
-// export const NEW_API_KEY = '1d399038bef14b0497d028fc27999696';
 
-// API USER ROUTES
 export const API_LOG = true;
 
 export const ERROR_SOMETHING_WENT_WRONG = {

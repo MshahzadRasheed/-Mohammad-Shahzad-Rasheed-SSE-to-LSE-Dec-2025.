@@ -1,4 +1,3 @@
-// Chat.tsx
 import React from 'react';
 import { View, FlatListProps } from 'react-native';
 import {

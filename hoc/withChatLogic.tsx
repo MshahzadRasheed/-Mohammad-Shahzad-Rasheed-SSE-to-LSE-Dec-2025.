@@ -1,4 +1,3 @@
-// withChatLogic.tsx
 import React, { useEffect, useMemo, useState } from 'react';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { IMessage } from 'react-native-gifted-chat';
@@ -20,7 +19,7 @@ import {
 import Routes from '../constants/RouteConstants.ts';
 
 interface WithChatLogicProps {
-    WrappedComponent: React.ComponentType<ChatProps>; // We'll type props properly below
+    WrappedComponent: React.ComponentType<ChatProps>;
 }
 
 const withChatLogic = (

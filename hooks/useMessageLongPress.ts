@@ -2,7 +2,7 @@ import { Platform, Keyboard, Alert } from 'react-native';
 import {
     CHAT_MORE_FOR_OWN_MESSAGES,
     CHAT_MORE_FOR_OTHER_MESSAGES,
-} from '../constants/'; // adjust path
+} from '../constants/';
 import { IMessage } from 'react-native-gifted-chat';
 import { useCallback } from 'react';
 import { CHAT_LIST } from '../constants/StringConstants';

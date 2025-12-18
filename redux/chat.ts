@@ -22,7 +22,7 @@ import {
     DELETE_CHAT as DELETE_CHAT_URL,
     DELETE_MESSAGE as DELETE_MESSAGE_URL,
 } from '../config/Webservice';
-import ApiSauce from 'ser';
+import ApiSauce from 'apisauce';
 import Util from '../util';
 import { showToastMsg } from '../components/Alert';
 import { APIConstants } from '../constants/APIConstants';
