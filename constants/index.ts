@@ -1,38 +1,17 @@
-import moment from 'moment';
 import React from 'react';
 import { ImageSourcePropType } from 'react-native';
 
 import {
-    LAUGHTER_GLOBAL,
-    LAUGHTER_PERSONAL,
-    LAUGHTER_STONE,
     LIFE,
-    LIFE_GLOBAL,
-    LIFE_PERSONAL,
-    LIFE_STONE,
-    LOVE_GLOBAL,
-    LOVE_PERSONAL,
-    LOVE_STONE,
-    PURPOSE_GLOBAL,
-    PURPOSE_PERSONAL,
-    PURPOSE_STONE,
-    RESPECT_GLOBAL,
-    RESPECT_PERSONAL,
-    RESPECT_STONE,
     SAFETY,
-    SAFETY_GLOBAL,
-    SAFETY_PERSONAL,
-    SAFETY_STONE,
     LOVE,
     RESPECT,
     LAUGHTER,
     PURPOSE,
 } from './AssetSVGConstants';
-import { Colors } from '../theme';
 
 export const PASSWORD_MIN_LENGTH = 6;
 export const PASSWORD_MAX_LENGTH = 20;
-// export const TIME_ZONE = (-1 * new Date().getTimezoneOffset()) / 60;
 export const APP_URL = '';
 export const APP_DOMAIN = '';
 export const QUERY_LIMIT = 10;
@@ -49,7 +28,6 @@ export const ANDROID_NOTI_CHANNEL = 'VeteranAppChanel';
 
 export const DISCARD_WARNING: String = 'Are You sure to discard';
 
-// date time formats
 export const DATE_FORMAT1 = 'dddd, DD MMMM, YYYY';
 export const DATE_FORMAT2 = 'YYYY MMMM DD';
 export const DATE_FORMAT3 = 'YYYY-MM-DD';
@@ -80,7 +58,6 @@ export const IMAGE_TYPE = {
 
 export const PLACEHOLDER_IMAGE =
     'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
-// Message types
 export const MESSAGE_TYPES = {
     INFO: 'info',
     ERROR: 'error',
@@ -88,7 +65,6 @@ export const MESSAGE_TYPES = {
 };
 export const ABOUT_IMPRINT_PAGE = 'https://delta.imprint.live/about-imprint';
 
-// File Types
 export const FILE_TYPES = { VIDEO: 'video', IMAGE: 'image', AUDIO: 'audi' };
 
 export const MENTIONS_REGEX =
@@ -173,3 +149,7 @@ export const CHAT_BLOCK_MAPPING = {
     BAN_CONVERSATION: 'BAN_CONVERSATION',
     BAN_CONVERSATION_U18: 'BAN_CONVERSATION_U18',
 };
+
+export enum CHAT_MESSAGES {
+    CONVERSATION_MESSAGE = 'conversation_message',
+}

@@ -3,16 +3,8 @@ import Util from '../util';
 import { APIConstants } from '../constants/APIConstants';
 import { Environment } from './environment';
 
-/**
- * Base URL for API requests - loaded from environment configuration
- * @see .env.sigma for Sigma/QA environment
- * @see .env.live for Production environment
- */
 export const BASE_URL = Environment.apiBaseUrl;
 
-/**
- * RUDI AI Chat Service URL - loaded from environment configuration
- */
 export const RUDI_API_URL = Environment.rudiApiUrl;
 
 export const API_TIMEOUT = 3000000;
@@ -45,8 +37,6 @@ export const REQUEST_TYPE = {
     PUT: 'put',
     PATCH: 'patch',
 };
-
-// API USER ROUTES
 
 export const USER_FOLLOWERS = {
     route: APIConstants.USER_FOLLOWERS,
@@ -166,7 +156,6 @@ export const callRequest = function (
         }
     }
 
-    // Merge custom headers passed via arguments
     _header = { ..._header, ...header };
 
     const _url =

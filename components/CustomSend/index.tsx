@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { Send } from 'react-native-gifted-chat';
 import { IMessage } from 'react-native-gifted-chat/lib/types';
 import SEND_BUTTON from 'assets/icons/send.svg';

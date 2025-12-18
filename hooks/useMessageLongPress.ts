@@ -5,7 +5,7 @@ import {
 } from '../constants/';
 import { IMessage } from 'react-native-gifted-chat';
 import { useCallback } from 'react';
-import { CHAT_LIST } from '../constants/StringConstants';
+import { CHAT_LIST, COMMON } from '../constants/StringConstants';
 import { ActionSheetContext } from 'react-native-action-sheet';
 
 export const useMessageLongPress = ({
@@ -49,13 +49,13 @@ export const useMessageLongPress = ({
                                     CHAT_LIST.REPORT_HEADING_DETAIL,
                                     [
                                         {
-                                            text: 'Yes',
+                                            text: COMMON.YES,
                                             onPress: () =>
                                                 handleReportModal(message),
                                             style: 'default',
                                         },
                                         {
-                                            text: 'No',
+                                            text: COMMON.NO,
                                             style: 'cancel',
                                         },
                                     ]

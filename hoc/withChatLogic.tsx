@@ -17,6 +17,7 @@ import {
     ChatStackParamList,
 } from '../types';
 import Routes from '../constants/RouteConstants.ts';
+import { CHAT_MESSAGES } from '../constants/index.ts';
 
 interface WithChatLogicProps {
     WrappedComponent: React.ComponentType<ChatProps>;
@@ -98,7 +99,7 @@ const withChatLogic = (
 
         const onClickAppeal = () => {
             const payload: TransparencyPayload = {
-                complex_type: 'conversation_message',
+                complex_type: CHAT_MESSAGES.CONVERSATION_MESSAGE,
                 content_id:
                     user.userInfo?.systemActionForChat?.violationContentId,
             };

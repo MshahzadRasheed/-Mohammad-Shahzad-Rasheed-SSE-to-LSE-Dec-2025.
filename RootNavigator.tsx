@@ -16,7 +16,6 @@ import AccountStatusModal from '../components/AccountStatusModal';
 import { RootState } from './types';
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
 const Routing: React.FC = () => {
     const [screenName, setScreenName] = useState<string | null>(null);
