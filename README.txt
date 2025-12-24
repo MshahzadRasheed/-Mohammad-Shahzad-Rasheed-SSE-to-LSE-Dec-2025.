@@ -1,183 +1,113 @@
-================================================================================
-                            imPrintAI - Social Media Application
-================================================================================
+==============================================
+========= 1. GENERAL INFO ====================
 
-PROJECT OVERVIEW
---------------------------------------------------------------------------------
-imPrintAI is a values-driven React Native social media application featuring
-real-time chat messaging, meaningful content sharing, private communities,
-and emotion-based interactions focused on authenticity and safety.
+Date of Sending the Sample: 24-Dec-2025
+Developer's Name: Mohammad Shahzad Rasheed
+Current Designation: SSE
+Sample Code Project Name: imPrintAI
+Nature of Project: MobileApp (React Native Social Media App)
+My Allocation in this Project: 100%
 
-TECH STACK
---------------------------------------------------------------------------------
-- React Native (TypeScript)
-- Redux + Redux Saga (State Management)
-- WebSocket (Real-time Communication)
-- React Navigation (Navigation Stack)
-- GiftedChat (Chat UI)
+-- This README describes the chat module and related functionalities .
 
-================================================================================
-                              PROJECT STRUCTURE
-================================================================================
+==============================================
+======== 2. CODE INFO ========================
 
-├── chat/
-│   ├── ChatScreen.tsx           # Main chat screen component
-│   ├── styles.tsx               # Chat screen styles
-│   └── ChatScreen.test.tsx      # Chat module test cases (AAA pattern)
-│
-├── components/
-│   ├── CustomBubble/            # Custom chat bubble component
-│   ├── CustomInputToolBar/      # Custom input toolbar for chat
-│   ├── CustomSend/              # Custom send button component
-│   ├── CustomTime/              # Custom time display component
-│   └── GifSelector/             # GIF picker component
-│
-├── constants/
-│   ├── APIConstants.ts          # API endpoint definitions
-│   ├── StringConstants.ts       # String literals and messages
-│   ├── RouteConstants.ts        # Navigation route names
-│   └── RegexConstants.ts        # Regex patterns for validation
-│
-├── hooks/
-│   ├── useChatWebSocket.ts      # WebSocket connection management
-│   ├── useMessageLongPress.ts   # Message long-press actions
-│   └── usePaginatedScroll.ts    # Infinite scroll pagination
-│
-├── hoc/
-│   └── withChatLogic.tsx        # Higher-order component for chat logic
-│
-├── redux/
-│   ├── actionTypes.ts           # Redux action type constants
-│   ├── chatActions.ts           # Chat-related action creators
-│   ├── chatSaga.ts              # Chat sagas
-│   └── userReducer.ts           # User reducer
+Languages: TypeScript, JavaScript
+Platform: React Native
 
+Followed Standard:
 
+React Native best practices and modular folder structure
 
+TypeScript for type safety and maintainability
 
-================================================================================
-                              SETUP INSTRUCTIONS
-================================================================================
+Redux + Redux-Saga for state management
 
-1. PREREQUISITES
-   - Node.js (v16+)
-   - React Native CLI
-   - Xcode (iOS) / Android Studio (Android)
-   - CocoaPods (iOS)
+WebSocket standards for real-time chat messaging
 
-2. INSTALLATION
-   $ npm install
-   $ cd ios && pod install && cd ..
+ESLint & Prettier for consistent code style
 
-3. ENVIRONMENT SETUP
-   Create .env file with:
-   - API_BASE_URL=<backend_url>
-   - WEBSOCKET_URL=<websocket_url>
-   - ENVIRONMENT=development|sigma|live
+Jest & React Native Testing Library (RTL) for unit and integration tests
 
-4. RUN APPLICATION
-   $ npx react-native run-ios     # iOS
-   $ npx react-native run-android # Android
+Reusable components and HOC patterns for chat logic
 
-5. RUN TESTS
-   $ npm test
-   $ npm test -- --coverage
+Purpose of Module:
 
-================================================================================
-                              KEY FEATURES
-================================================================================
+Implement real-time chat messaging using WebSocket
 
-1. AUTHENTICATION
-   - Email/Password login
-   - Google Sign-In
-   - OTP verification
-   - Password reset
+Handle message pagination, GIFs, long-press actions (delete/report), and read-status updates
 
-2. CHAT MODULE
-   - Real-time WebSocket messaging
-   - GIF support
-   - Message pagination
-   - Long-press actions (delete/report)
-   - Read status updates
+Integrate chat with Redux state management
 
-3. TIMELINE
-   - Global feed
-   - Personal feed
-   - User profile timeline
-   - Post reactions
+Support private one-on-one chats and group chats
 
-4. SOCIAL FEATURES
-   - Follow/Unfollow users
-   - Friend suggestions
-   - User profiles
-   - Notifications
+Provide UI components for chat functionality (bubble, toolbar, send button, GIF selector, timestamp)
 
-================================================================================
-                              API ENDPOINTS
-================================================================================
+==============================================
+======== 3. OTHER FILES =======================
 
-Authentication:
-  POST /api/v2/auth/login          - User login
-  POST /api/v2/auth/signup         - User registration
-  POST /api/v2/auth/otp            - Send OTP
-  POST /api/v2/auth/otp/verify     - Verify OTP
-  POST /api/v2/auth/google-login   - Google authentication
+None
 
-User:
-  GET  /api/v2/user/info           - Get user information
-  POST /api/v2/user/onboarding     - Complete profile setup
-  GET  /api/v2/user/suggestion/list - Friend suggestions
+Code Contributed by Other Developers:
 
-Timeline:
-  GET  api/v2/timeline/global-tribe/   - Global timeline
-  GET  api/v2/timeline/personal-tribe/ - Personal timeline
-  GET  api/v2/timeline/user-profile/   - User profile timeline
+None (all code contributed by me for this module)
 
-Chat:
-  GET  /api/v2/chat/recent         - Recent chat list
-  POST /api/v2/chat/group          - Create chat group
-  GET  /api/v2/chat/messages       - Get conversation messages
+==============================================
+======== 4. MY FILES ==========================
+Program Entry Point For this Module:
 
-================================================================================
-                              TESTING STRATEGY
-================================================================================
+File: AppEntry.tsx
+Method: Main application entry with providers and root navigator setup
 
-Tests follow the AAA (Arrange-Act-Assert) pattern:
+Files Intro:
 
-  ARRANGE: Set up test data, mocks, and initial state
-  ACT:     Execute the function/component being tested
-  ASSERT:  Verify the expected outcomes
+chat/ChatScreen.tsx
+Main chat screen component handling message display, input, and interactions
 
-Example:
-  describe('useMessageLongPress', () => {
-    it('should handle own message deletion', () => {
-      // Arrange
-      const mockDeleteMessage = jest.fn();
-      const message = { user: { _id: 'user123' } };
-      
-      // Act
-      onLongPress(context, message);
-      
-      // Assert
-      expect(mockDeleteMessage).toHaveBeenCalledWith(message, false);
-    });
-  });
+chat/styles.tsx
+Styles for chat screen and components
 
-================================================================================
-                              ENVIRONMENTS
-================================================================================
+chat/ChatScreen.test.tsx
+Unit and integration tests for chat module following AAA pattern
 
-Development : https://delta.imprint.live/backend
-Sigma       : https://sigma.imprint.live/backend  
-Production  : https://app.imprint.live/backend
+components/CustomBubble/
+Chat bubble component for message display
 
-================================================================================
-                              AUTHOR & LICENSE
-================================================================================
+components/CustomInputToolBar/
+Custom input toolbar for chat message input
 
-Author: Mohammad Shahzad Rasheed
-Date: December 2025
-License: Proprietary
+components/CustomSend/
+Send button component
 
-================================================================================
+components/CustomTime/
+Timestamp display component
+
+components/GifSelector/
+GIF picker component
+
+hooks/useChatWebSocket.ts
+WebSocket connection management
+
+hooks/useMessageLongPress.ts
+Handles long-press actions on messages (delete/report)
+
+hooks/usePaginatedScroll.ts
+Implements infinite scroll for messages
+
+hoc/withChatLogic.tsx
+Higher-order component for chat functionality logic
+
+redux/
+Contains Redux actions, reducers, and sagas for chat and user modules
+
+constants/
+API endpoints, string literals, routes, and regex patterns
+
+==============================================
+======== 5. ADDITIONAL COMMENTS ================
+
+Real-time chat uses WebSocket integrated with Redux for state management
+
+Tests follow AAA (Arrange-Act-Assert) pattern for clarity
 
