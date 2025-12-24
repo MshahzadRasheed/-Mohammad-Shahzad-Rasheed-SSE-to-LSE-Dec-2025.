@@ -1,4 +1,7 @@
-import { take, call, fork } from 'redux-saga/effects';
+// Redux / Saga imports
+import { take, call, fork, cancelled } from 'redux-saga/effects';
+
+// Action types
 import {
     CREATE_CHAT_GROUP,
     RECENT_CHAT_LIST,
@@ -9,7 +12,8 @@ import {
     FLAG_MESSAGE,
     DELETE_CHAT,
     DELETE_MESSAGE,
-} from './ActionTypes';
+} from './actionTypes';
+// API calls
 import {
     callRequest,
     DELETE_CHAT_GROUP as DELETE_CHAT_GROUP_URL,
@@ -22,6 +26,7 @@ import {
     DELETE_CHAT as DELETE_CHAT_URL,
     DELETE_MESSAGE as DELETE_MESSAGE_URL,
 } from '../config/Webservice';
+// Utilities
 import ApiSauce from 'apisauce';
 import Util from '../util';
 import { showToastMsg } from '../components/Alert';
@@ -37,6 +42,7 @@ interface SagaConfig {
     customErrorHandler?: (err: Error) => void;
 }
 
+// Updated createApiSaga to ensure proper cancellation
 function createApiSaga(config: SagaConfig) {
     const {
         actionType,
@@ -47,36 +53,42 @@ function createApiSaga(config: SagaConfig) {
     } = config;
 
     return function* () {
-        while (true) {
-            const { payload = {}, responseCallback } = yield take(
-                actionType.REQUEST
-            );
-
-            try {
-                const parameters = buildParams ? buildParams(payload) : '';
-
-                const response = yield call(
-                    callRequest,
-                    apiConfig,
-                    payload,
-                    parameters,
-                    customHeaders,
-                    ApiSauce
+        try {
+            while (true) {
+                const { payload = {}, responseCallback } = yield take(
+                    actionType.REQUEST
                 );
 
-                if (response) {
-                    if (responseCallback) responseCallback(response, null);
-                } else {
-                    showToastMsg('Something went wrong');
-                }
-            } catch (err) {
-                if (responseCallback) responseCallback(null, err);
+                try {
+                    const parameters = buildParams ? buildParams(payload) : '';
 
-                if (customErrorHandler) {
-                    customErrorHandler(err);
-                } else {
-                    showToastMsg(Util.getErrorText(err.message));
+                    const response = yield call(
+                        callRequest,
+                        apiConfig,
+                        payload,
+                        parameters,
+                        customHeaders,
+                        ApiSauce
+                    );
+
+                    if (response) {
+                        if (responseCallback) responseCallback(response, null);
+                    } else {
+                        showToastMsg('Something went wrong');
+                    }
+                } catch (err) {
+                    if (responseCallback) responseCallback(null, err);
+
+                    if (customErrorHandler) {
+                        customErrorHandler(err);
+                    } else {
+                        showToastMsg(Util.getErrorText(err.message));
+                    }
                 }
+            }
+        } finally {
+            if (yield cancelled()) {
+                console.log('Saga cancelled:', config.actionType);
             }
         }
     };

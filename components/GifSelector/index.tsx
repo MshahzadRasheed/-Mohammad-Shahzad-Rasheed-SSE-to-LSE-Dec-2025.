@@ -1,16 +1,24 @@
-// React imports
+// React / React Native core imports
 import React from 'react';
-
-// React Native imports
 import { View, Pressable, Image } from 'react-native';
 
-// Library imports
+// Navigation / State / Context imports
+// (No imports in this category for this file)
+
+// Third-party library imports
 import OutsidePressHandler from 'react-native-outside-press';
 
-// Custom imports
-import { GIF_IMAGES, IMAGE_TYPE } from '../../constants';
-import { CHAT_ATTACHMENT } from '../../constants/AssetSVGConstants';
+// Utilities / Helpers / API imports
+import { GIF_IMAGES, IMAGE_TYPE } from '@/constants';
+
+// Shared components / UI elements
+// (No imports in this category for this file)
+
+// Styles / Themes / Constants
 import { styles } from './styles';
+
+// Assets / Images / Icons
+import { CHAT_ATTACHMENT } from '@/constants/AssetSVGConstants';
 
 interface GifSelectorProps {
     showGif: boolean;

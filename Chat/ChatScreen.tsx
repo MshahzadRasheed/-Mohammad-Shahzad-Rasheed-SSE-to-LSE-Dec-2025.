@@ -1,5 +1,12 @@
+// React / React Native core imports
 import React from 'react';
 import { View, FlatListProps } from 'react-native';
+
+// Navigation / State / Context imports
+import { StackNavigationProp } from '@react-navigation/stack';
+import { connect } from 'react-redux';
+
+// Third-party library imports
 import {
     GiftedChat,
     IMessage,
@@ -8,7 +15,19 @@ import {
     TimeProps,
     InputToolbarProps,
 } from 'react-native-gifted-chat';
-import { connect } from 'react-redux';
+import { hasNotch } from 'react-native-device-info';
+
+// Utilities / Helpers / API imports
+import {
+    ChatProps,
+    ReportContentPayload,
+    RootState,
+    ReportContentResponse,
+    ActionSheetContext,
+    Follower,
+} from '../types';
+
+// Shared components / UI elements
 import {
     CustomNavbar,
     ReportModal,
@@ -19,17 +38,11 @@ import {
     CustomSend,
     GifSelector,
 } from '../components';
-import {
-    ChatProps,
-    ReportContentPayload,
-    RootState,
-    ReportContentResponse,
-    ActionSheetContext,
-    Follower,
-} from '../types';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { hasNotch } from 'react-native-device-info';
+
+// Styles / Themes / Constants
 import styles from './styles';
+
+// Higher-order components
 import withChatLogic from '../hoc/withChatLogic';
 
 interface HocChatProps {
@@ -103,6 +116,7 @@ const Chat: React.FC<ChatProps> = (props: HocChatProps) => {
         route,
     } = props;
 
+    // Function to render modals for reporting and violations
     const renderModal = () => (
         <>
             {showReportModal && (
@@ -130,24 +144,31 @@ const Chat: React.FC<ChatProps> = (props: HocChatProps) => {
 
     return (
         <View style={styles.container}>
+            {/* Status bar for devices with and without a notch */}
             <View
                 style={
                     hasNotch() ? styles.statusBar : styles.statusBarWithoutNotch
                 }
             />
+
+            {/* Custom navigation bar at the top */}
             <CustomNavbar
                 leftBtnPress={() => props.navigation.goBack()}
                 title={chatTitle}
                 hasMultiRight={true}
                 style={styles.navBarColor}
             />
+
+            {/* Render modals for reporting and violations */}
             {renderModal()}
+
+            {/* Main chat interface using GiftedChat */}
             <GiftedChat
                 keyboardShouldPersistTaps='never'
                 textInputProps={styles.textInputProps}
                 listViewProps={listViewProps}
                 messages={messages}
-                onSend={(messages: IMessage[]) => sendMessage(messages[0].text)}
+                onSend={(messages: IMessage) => sendMessage(messages.text)}
                 user={{
                     _id: user.userInfo.userId,
                     name: user.userInfo.displayName,

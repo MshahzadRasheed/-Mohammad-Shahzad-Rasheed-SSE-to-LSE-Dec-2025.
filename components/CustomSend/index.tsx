@@ -1,13 +1,24 @@
-// React imports
+// React / React Native core imports
 import React from 'react';
 
-// React Native imports
+// Navigation / State / Context imports
+// (No imports in this category for this file)
+
+// Third-party library imports
 import { Send } from 'react-native-gifted-chat';
 import { IMessage } from 'react-native-gifted-chat/lib/types';
 
-// Custom imports
-import SEND_BUTTON from 'assets/icons/send.svg';
+// Utilities / Helpers / API imports
+// (No imports in this category for this file)
+
+// Shared components / UI elements
+// (No imports in this category for this file)
+
+// Styles / Themes / Constants
 import styles from './styles';
+
+// Assets / Images / Icons
+import SEND_BUTTON from '@/assets/icons/send.svg';
 
 interface CustomSendProps {
     props: IMessage;

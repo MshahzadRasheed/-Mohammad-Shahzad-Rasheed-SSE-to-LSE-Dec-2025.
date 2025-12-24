@@ -1,15 +1,17 @@
-// React imports
+// React / React Native core imports
 import React from 'react';
-
-// React Native imports
 import { View } from 'react-native';
+
+// Third-party library imports
 import { Bubble, BubbleProps, IMessage } from 'react-native-gifted-chat';
 
-// Custom imports
-import RED_FLAG from '../assets/icons/RedFlag';
+// Styles / Themes / Constants
 import { CHAT_LIST } from '../../constants/StringConstants';
 import { BUBBLE_POSITIONS } from '../../constants';
 import styles from './styles';
+
+// Assets / Images / Icons
+import RED_FLAG from '../../assets/icons/RedFlag';
 
 interface CustomBubbleProps {
     props: BubbleProps<IMessage>;

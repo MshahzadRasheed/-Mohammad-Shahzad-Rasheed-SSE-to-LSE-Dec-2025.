@@ -22,7 +22,7 @@ import {
     DELETE_CHAT_GROUP,
     DELETE_CHAT,
     DELETE_MESSAGE,
-} from './ActionTypes';
+} from './actionTypes';
 
 /** Standard Redux action interface */
 interface Action {

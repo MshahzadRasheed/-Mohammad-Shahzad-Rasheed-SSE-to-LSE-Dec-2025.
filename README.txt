@@ -4,8 +4,9 @@
 
 PROJECT OVERVIEW
 --------------------------------------------------------------------------------
-imPrintAI is a React Native social media application featuring real-time 
-messaging, social timeline feeds, user authentication, and profile management.
+imPrintAI is a values-driven React Native social media application featuring
+real-time chat messaging, meaningful content sharing, private communities,
+and emotion-based interactions focused on authenticity and safety.
 
 TECH STACK
 --------------------------------------------------------------------------------
@@ -19,39 +20,40 @@ TECH STACK
                               PROJECT STRUCTURE
 ================================================================================
 
-/
-├── AppEntry.tsx           # Main app entry point with providers setup
-├── RootNavigator.tsx      # Root navigation configuration
-├── Chat/
-│   ├── index.tsx          # Main Chat screen component
-│   ├── styles.tsx         # Chat screen styles
-│   └── chat.test.tsx      # Chat module test cases (AAA pattern)
+├── chat/
+│   ├── ChatScreen.tsx           # Main chat screen component
+│   ├── styles.tsx               # Chat screen styles
+│   └── ChatScreen.test.tsx      # Chat module test cases (AAA pattern)
+│
 ├── components/
-│   ├── CustomBubble/      # Custom chat bubble component
-│   ├── CustomInputToolBar/# Custom input toolbar for chat
-│   ├── CustomSend/        # Custom send button component
-│   ├── CustomTime/        # Custom time display component
-│   └── GifSelector/       # GIF picker component
-├── config/
-│   ├── environment.ts     # Environment configuration (dev/sigma/live)
-│   └── Webservice.ts      # API service configuration
+│   ├── CustomBubble/            # Custom chat bubble component
+│   ├── CustomInputToolBar/      # Custom input toolbar for chat
+│   ├── CustomSend/              # Custom send button component
+│   ├── CustomTime/              # Custom time display component
+│   └── GifSelector/             # GIF picker component
+│
 ├── constants/
-│   ├── APIConstants.ts    # API endpoint definitions
-│   ├── StringConstants.ts # String literals and messages
-│   ├── RouteConstants.ts  # Navigation route names
-│   └── RegexConstants.ts  # Regex patterns for validation
+│   ├── APIConstants.ts          # API endpoint definitions
+│   ├── StringConstants.ts       # String literals and messages
+│   ├── RouteConstants.ts        # Navigation route names
+│   └── RegexConstants.ts        # Regex patterns for validation
+│
 ├── hooks/
-│   ├── useChatWebSocket.ts    # WebSocket connection management
-│   ├── useMessageLongPress.ts # Message long-press actions
-│   └── usePaginatedScroll.ts  # Infinite scroll pagination
+│   ├── useChatWebSocket.ts      # WebSocket connection management
+│   ├── useMessageLongPress.ts   # Message long-press actions
+│   └── usePaginatedScroll.ts    # Infinite scroll pagination
+│
 ├── hoc/
-│   └── withChatLogic.tsx  # Higher-order component for chat logic
+│   └── withChatLogic.tsx        # Higher-order component for chat logic
+│
 ├── redux/
-│   ├── ActionTypes.ts     # Redux action type constants
-│   ├── ChatActions.ts     # Chat-related action creators
-│   ├── chat.ts            # Chat reducer and sagas
-│   └── user.ts            # User reducer
-└── types.tsx              # TypeScript type definitions
+│   ├── actionTypes.ts           # Redux action type constants
+│   ├── chatActions.ts           # Chat-related action creators
+│   ├── chatSaga.ts              # Chat sagas
+│   └── userReducer.ts           # User reducer
+
+
+
 
 ================================================================================
                               SETUP INSTRUCTIONS
@@ -165,9 +167,9 @@ Example:
                               ENVIRONMENTS
 ================================================================================
 
-Development : https://dev.imprint.live/backend
+Development : https://delta.imprint.live/backend
 Sigma       : https://sigma.imprint.live/backend  
-Production  : https://api.imprint.live/backend
+Production  : https://app.imprint.live/backend
 
 ================================================================================
                               AUTHOR & LICENSE

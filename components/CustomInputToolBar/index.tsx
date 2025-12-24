@@ -1,20 +1,22 @@
-// React imports
+// React / React Native core imports
 import React from 'react';
+import { Text, ViewStyle, TextStyle } from 'react-native';
 
-// React Native imports
+// Third-party library imports
 import {
     InputToolbar,
     InputToolbarProps,
     IMessage,
 } from 'react-native-gifted-chat';
-import { Text, ViewStyle, TextStyle } from 'react-native';
 
-// Custom imports
-import { CHAT_LIST, TOAST_MESSAGES } from '../constants';
+// Utilities / Helpers / API imports
+import { CHAT_LIST, TOAST_MESSAGES } from '../../constants/StringConstants';
 import { CHAT_BLOCK_MAPPING } from '../../constants';
+
+// Styles / Themes / Constants
 import { AppStyles } from '../styles/AppStyles';
 import { Colors } from '../styles/Colors';
-import { UserState, Follower } from '../../types';
+import { Follower, UserState } from '../../types';
 
 interface ChatRoute {
     params: {

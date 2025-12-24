@@ -7,15 +7,20 @@
  * @module hooks/usePaginatedScroll
  */
 
+// React / React Native core imports
+import React, { useCallback } from 'react';
 import {
     Keyboard,
     NativeScrollEvent,
     NativeSyntheticEvent,
 } from 'react-native';
-import React from 'react';
+
+// Third-party library imports
 import { debounce } from 'lodash';
-import { useCallback } from 'react';
+
+// Utilities / Helpers / API imports
 import { EventScrollType } from '../types';
+import { DEBOUNCE_DELAY, SCROLL_OFFSET } from '../constants';
 
 /**
  * Props interface for usePaginatedScroll hook
@@ -59,12 +64,12 @@ export const usePaginatedScroll = ({
         debounce(() => {
             if (!loading && !allDataLoaded) {
                 // Load next page of messages
-                setPage((prevPage) => prevPage + 1);
+                setPage((prevPage: number) => prevPage + 1);
             } else {
                 // Reset loading state if no more data
                 setLoading(false);
             }
-        }, 300), // 300ms debounce to prevent rapid API calls
+        }, DEBOUNCE_DELAY), // Updated debounce usage
         [loading, allDataLoaded]
     );
 
@@ -78,19 +83,13 @@ export const usePaginatedScroll = ({
      * @returns true if within 20px of top
      */
     const isCloseToTop = ({
-        layoutMeasurement,
         contentOffset,
-        contentSize,
     }: {
         layoutMeasurement: EventScrollType;
         contentOffset: { x: number; y: number };
         contentSize: EventScrollType;
     }): boolean => {
-        // 20px threshold for triggering load
-        return (
-            contentSize.height - layoutMeasurement.height - 20 <=
-            contentOffset.y
-        );
+        return contentOffset.y <= SCROLL_OFFSET; // Updated isCloseToTop
     };
 
     /**

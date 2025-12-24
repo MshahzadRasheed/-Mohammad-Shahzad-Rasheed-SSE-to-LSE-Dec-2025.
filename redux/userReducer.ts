@@ -5,7 +5,7 @@ import {
     USER_LOGOUT,
     USER_SIGN_IN,
     SET_SYSTEM_ACTION,
-} from '../redux/ActionTypes';
+} from '../redux/actionTypes';
 import { LoginPayload, UserData } from '../types';
 
 const initialState = Immutable({
