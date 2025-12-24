@@ -2,6 +2,9 @@
 import React from 'react';
 import { Text, ViewStyle, TextStyle } from 'react-native';
 
+// Navigation / State / Context imports
+// (No imports in this category for this file)
+
 // Third-party library imports
 import {
     InputToolbar,
@@ -10,13 +13,19 @@ import {
 } from 'react-native-gifted-chat';
 
 // Utilities / Helpers / API imports
-import { CHAT_LIST, TOAST_MESSAGES } from '../../constants/StringConstants';
-import { CHAT_BLOCK_MAPPING } from '../../constants';
+import { CHAT_LIST, TOAST_MESSAGES } from '@/constants';
+import { CHAT_BLOCK_MAPPING } from '@/constants';
+
+// Shared components / UI elements
+// (No imports in this category for this file)
 
 // Styles / Themes / Constants
-import { AppStyles } from '../styles/AppStyles';
-import { Colors } from '../styles/Colors';
+import { AppStyles } from '@/styles/AppStyles';
+import { Colors } from '@/styles/Colors';
 import { Follower, UserState } from '../../types';
+
+// Assets / Images / Icons
+// (No imports in this category for this file)
 
 interface ChatRoute {
     params: {

@@ -29,14 +29,14 @@ import {
 
 // Shared components / UI elements
 import {
-    CustomNavbar,
-    ReportModal,
-    ViolationModal,
-    CustomInputToolbar,
-    CustomBubble,
-    CustomTime,
-    CustomSend,
-    GifSelector,
+    CustomNavbar, // Navigation bar at the top of the screen
+    ReportModal, // Modal for reporting inappropriate content
+    ViolationModal, // Modal for displaying violation details
+    CustomInputToolbar, // Custom input toolbar for chat messages
+    CustomBubble, // Custom chat bubble for displaying messages
+    CustomTime, // Custom time display for messages
+    CustomSend, // Custom send button for sending messages
+    GifSelector, // Component for selecting and sending GIFs
 } from '../components';
 
 // Styles / Themes / Constants
@@ -168,7 +168,7 @@ const Chat: React.FC<ChatProps> = (props: HocChatProps) => {
                 textInputProps={styles.textInputProps}
                 listViewProps={listViewProps}
                 messages={messages}
-                onSend={(messages: IMessage) => sendMessage(messages.text)}
+                onSend={(messages: IMessage[]) => sendMessage(messages[0].text)}
                 user={{
                     _id: user.userInfo.userId,
                     name: user.userInfo.displayName,
