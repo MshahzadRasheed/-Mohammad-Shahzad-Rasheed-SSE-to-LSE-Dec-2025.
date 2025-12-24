@@ -8,7 +8,7 @@ Sample Code Project Name: imPrintAI
 Nature of Project: MobileApp (React Native Social Media App)
 My Allocation in this Project: 100%
 
--- This README describes the chat module and related functionalities .
+-- This README describes the chat module, including real-time messaging, message actions, and related components.
 
 ==============================================
 ======== 2. CODE INFO ========================
@@ -28,7 +28,7 @@ WebSocket standards for real-time chat messaging
 
 ESLint & Prettier for consistent code style
 
-Jest & React Native Testing Library (RTL) for unit and integration tests
+- Jest for unit and integration tests
 
 Reusable components and HOC patterns for chat logic
 
