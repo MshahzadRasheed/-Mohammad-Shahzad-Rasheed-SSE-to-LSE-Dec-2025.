@@ -1,6 +1,13 @@
+// React imports
 import React from 'react';
+
+// React Native imports
 import { View, Pressable, Image } from 'react-native';
+
+// Library imports
 import OutsidePressHandler from 'react-native-outside-press';
+
+// Custom imports
 import { GIF_IMAGES, IMAGE_TYPE } from '../../constants';
 import { CHAT_ATTACHMENT } from '../../constants/AssetSVGConstants';
 import { styles } from './styles';

@@ -1,6 +1,13 @@
+// React imports
 import React from 'react';
+
+// React Native imports
 import { View } from 'react-native';
+
+// Library imports
 import { Time, IMessage, TimeProps } from 'react-native-gifted-chat';
+
+// Custom imports
 import RED_FLAG from '../assets/icons/RedFlag'; // Update path as needed
 import { Colors } from '../constants'; // Adjust the path if required
 import { styles } from './styles';

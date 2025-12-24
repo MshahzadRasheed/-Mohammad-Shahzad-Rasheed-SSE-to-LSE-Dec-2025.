@@ -1,10 +1,15 @@
+// React imports
 import React from 'react';
+
+// React Native imports
 import {
     InputToolbar,
     InputToolbarProps,
     IMessage,
 } from 'react-native-gifted-chat';
 import { Text, ViewStyle, TextStyle } from 'react-native';
+
+// Custom imports
 import { CHAT_LIST, TOAST_MESSAGES } from '../constants';
 import { CHAT_BLOCK_MAPPING } from '../../constants';
 import { AppStyles } from '../styles/AppStyles';

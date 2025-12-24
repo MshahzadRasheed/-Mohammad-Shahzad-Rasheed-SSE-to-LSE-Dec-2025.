@@ -1,3 +1,12 @@
+/**
+ * Chat Redux Actions
+ *
+ * Action creators for chat-related Redux operations.
+ * Follows Redux Saga pattern with REQUEST/SUCCESS/FAILURE action types.
+ *
+ * @module redux/ChatActions
+ */
+
 import {
     GetMessagesPayload,
     DeleteChatPayload,
@@ -15,6 +24,7 @@ import {
     DELETE_MESSAGE,
 } from './ActionTypes';
 
+/** Standard Redux action interface */
 interface Action {
     type: string;
     payload?: object;
@@ -22,6 +32,19 @@ interface Action {
     responseCallback?: object;
 }
 
+/**
+ * Creates action to request conversation messages
+ *
+ * @param payload - Contains page number and conversation ID
+ * @param responseCallback - Callback function for handling response
+ * @returns Redux action object
+ *
+ * @example
+ * dispatch(getConversationMessagesRequest(
+ *   { page: 1, convId: 'abc123' },
+ *   (messages) => console.log(messages)
+ * ));
+ */
 export function getConversationMessagesRequest(
     payload: GetMessagesPayload,
     responseCallback: ConversationMessageResponse
@@ -33,6 +56,13 @@ export function getConversationMessagesRequest(
     };
 }
 
+/**
+ * Creates action to update message read status
+ *
+ * @param payload - Contains conversation ID to mark as read
+ * @param responseCallback - Callback with updated read status
+ * @returns Redux action object
+ */
 export function updateMessageReadStatus(
     payload: ReadStatusPayload,
     responseCallback: ReadStatusUpdateResponse
@@ -44,6 +74,12 @@ export function updateMessageReadStatus(
     };
 }
 
+/**
+ * Creates action to request chat authentication token
+ *
+ * @param responseCallback - Callback with chat token
+ * @returns Redux action object
+ */
 export function getChatTokenRequest(responseCallback: {
     chToken: string;
 }): Action {
@@ -53,6 +89,13 @@ export function getChatTokenRequest(responseCallback: {
     };
 }
 
+/**
+ * Creates action to delete a chat group
+ *
+ * @param payload - Contains conversation ID to delete
+ * @param responseCallback - Callback with deletion result
+ * @returns Redux action object
+ */
 export function deleteChatGroupRequest(
     payload: DeleteChatPayload,
     responseCallback: DeleteChatResponse
@@ -64,6 +107,13 @@ export function deleteChatGroupRequest(
     };
 }
 
+/**
+ * Creates action to delete a specific message
+ *
+ * @param payload - Contains message/conversation ID to delete
+ * @param responseCallback - Callback with deletion result
+ * @returns Redux action object
+ */
 export function deleteMessageRequest(
     payload: DeleteChatPayload,
     responseCallback: DeleteChatResponse
@@ -75,6 +125,13 @@ export function deleteMessageRequest(
     };
 }
 
+/**
+ * Creates action to delete an entire chat conversation
+ *
+ * @param payload - Contains conversation ID to delete
+ * @param responseCallback - Callback with deletion result
+ * @returns Redux action object
+ */
 export function deleteChatRequest(
     payload: DeleteChatPayload,
     responseCallback: DeleteChatResponse

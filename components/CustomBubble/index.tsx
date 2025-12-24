@@ -1,6 +1,11 @@
+// React imports
 import React from 'react';
+
+// React Native imports
 import { View } from 'react-native';
 import { Bubble, BubbleProps, IMessage } from 'react-native-gifted-chat';
+
+// Custom imports
 import RED_FLAG from '../assets/icons/RedFlag';
 import { CHAT_LIST } from '../../constants/StringConstants';
 import { BUBBLE_POSITIONS } from '../../constants';
